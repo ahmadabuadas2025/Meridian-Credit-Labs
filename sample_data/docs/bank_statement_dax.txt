@@ -1,0 +1,6 @@
+*** FICTIONAL DOCUMENT - MERIDIAN CREDIT LABS CLASS DEMO - NOT A REAL RECORD ***
+MOCK BANK STATEMENT - Fernwood Demo Bank (fictional)
+Account Holder: Dax Holloway
+Statement Period: 2026-06-01 to 2026-08-31
+Average Monthly Deposits: $3,960.00
+Ending Balance: $7,210.55

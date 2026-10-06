@@ -1,0 +1,8 @@
+*** FICTIONAL DOCUMENT - MERIDIAN CREDIT LABS CLASS DEMO - NOT A REAL RECORD ***
+PAY STUB (MOCK)
+Employer: Copperfern Studios
+Employee: Dax Holloway
+Pay Period: 2026-08-01 to 2026-08-31
+Pay Frequency: Monthly
+Gross Monthly Income: $4,000.00
+Taxes and Deductions: $1,180.00

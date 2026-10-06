@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meridian Credit Labs</title>
+  <meta name="description" content="Meridian Credit Labs: fast, explainable loan decisions. A class demo with fictional data and mock models.">
+  <link rel="icon" href="assets/media/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Schibsted+Grotesk:wght@500;600;700;800&display=swap">
+  <link rel="stylesheet" href="assets/css/app.css">
+  <link rel="stylesheet" href="assets/css/landing.css">
+  <script src="assets/js/common.js" defer></script>
+  <script src="assets/js/landing.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Meridian Credit Labs home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 2v28" stroke="var(--accent)" stroke-width="3"/><path d="M5 11h22M5 21h22" stroke="currentColor" stroke-width="1.5" opacity=".5"/></svg>
+      Meridian <small>Credit Labs</small>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a class="hide-sm" href="#how">How it works</a>
+      <a href="apply.html">Apply</a>
+      <a href="ops.html">Underwriters</a>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Toggle theme"></button>
+  </div>
+</header>
+
+<main id="main">
+  <!-- Hero ---------------------------------------------------------------------------->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-media" aria-hidden="true">
+      <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/media/hero-loop-poster.webp">
+        <source src="assets/media/hero-loop.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1 id="hero-title">Fast, explainable loan decisions.</h1>
+        <p class="hero-sub">Every application is checked against seven plain-English rules, in order. You see which rule decided, the numbers it used, and when a person needs to take over.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="apply.html">Apply for a loan</a>
+          <a class="btn btn-on-dark" href="ops.html">Open underwriter console</a>
+        </div>
+        <p class="hero-note">Class demo. Fictional applicants, mock models, no real credit checks.</p>
+      </div>
+
+      <figure class="trace" aria-labelledby="trace-cap">
+        <figcaption id="trace-cap" class="trace-head">
+          <span>Application <strong class="num">MCL-1005</strong></span>
+          <span class="trace-name">Emery Vance, $15,000 over 48 months</span>
+        </figcaption>
+        <ol class="trace-rules">
+          <li data-state="pass"><span class="rid">R1</span><span>Required documents present</span><span class="rv">3 of 3</span></li>
+          <li data-state="pass"><span class="rid">R2</span><span>Risk score below 70</span><span class="rv num">13</span></li>
+          <li data-state="pass"><span class="rid">R3</span><span>Debt-to-income at or under 45%</span><span class="rv num">14.0%</span></li>
+          <li data-state="fired"><span class="rid">R4</span><span>Document income matches stated</span><span class="rv num">25.7% off</span></li>
+          <li data-state="skip"><span class="rid">R5</span><span>Risk score below 40</span><span class="rv">not reached</span></li>
+          <li data-state="skip"><span class="rid">R6</span><span>Loan within 50% of annual income</span><span class="rv">not reached</span></li>
+        </ol>
+        <div class="trace-outcome">
+          <span class="pill pill-REVIEW">Sent to underwriter</span>
+          <p>Income mismatch: stated $7,000 vs document $5,200.</p>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Pipeline ------------------------------------------------------------------------>
+  <section id="how" class="pipeline-section" aria-labelledby="how-title">
+    <div class="wrap pipeline-grid">
+      <div class="pipeline-intro">
+        <h2 id="how-title">How a decision is made</h2>
+        <p>Six stages, one direction. Each stage is a separate module you can read in about a minute, and each one writes to the audit log before handing off.</p>
+      </div>
+      <div class="pipeline-track">
+      <span class="meridian" aria-hidden="true"><span class="meridian-fill"></span></span>
+      <ol class="pipeline">
+        <li class="stage">
+          <span class="stage-dot" aria-hidden="true">1</span>
+          <div class="stage-body">
+            <h3>Intake</h3>
+            <p>Checks the basics: a name, a positive amount, a term of 12 to 60 months. Bad input stops here with a clear message, and nothing is saved.</p>
+            <code>loan_review/intake.py</code>
+          </div>
+        </li>
+        <li class="stage">
+          <span class="stage-dot" aria-hidden="true">2</span>
+          <div class="stage-body">
+            <h3>Document AI <em class="mock">mock</em></h3>
+            <p>Reads the uploaded ID, pay stub and bank statement. It pulls out the employer and monthly income for the rules to check.</p>
+            <code>loan_review/extraction.py</code>
+          </div>
+        </li>
+        <li class="stage">
+          <span class="stage-dot" aria-hidden="true">3</span>
+          <div class="stage-body">
+            <h3>Risk score <em class="mock">mock</em></h3>
+            <p>A 0 to 100 score from four inputs: credit band, debt-to-income, prior late payments and years employed. The formula is published, not hidden.</p>
+            <code>loan_review/risk.py</code>
+          </div>
+        </li>
+        <li class="stage">
+          <span class="stage-dot" aria-hidden="true">4</span>
+          <div class="stage-body">
+            <h3>Lending rules</h3>
+            <p>Seven rules run in a fixed order, and the first one that fires decides. The result is approve, decline or review, with a one-line reason.</p>
+            <code>loan_review/rules.py</code>
+          </div>
+        </li>
+        <li class="stage">
+          <span class="stage-dot" aria-hidden="true">5</span>
+          <div class="stage-body">
+            <h3>Human review</h3>
+            <p>Anything uncertain goes to an underwriter. Their name and note are logged next to the automated result, which is kept as it was.</p>
+            <code>loan_review/underwriting.py</code>
+          </div>
+        </li>
+        <li class="stage">
+          <span class="stage-dot" aria-hidden="true">6</span>
+          <div class="stage-body">
+            <h3>Decision and notice</h3>
+            <p>The decision is recorded and the applicant gets a notice explaining it. The demo stops there, and no money moves.</p>
+            <code>loan_review/notify.py</code>
+          </div>
+        </li>
+      </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Explainable --------------------------------------------------------------------->
+  <section class="explain" aria-labelledby="explain-title">
+    <div class="wrap split">
+      <div class="split-copy reveal">
+        <h2 id="explain-title">Explainable by design</h2>
+        <p>A decision without a reason is just a guess. Every Meridian decision carries the rule that decided it, the values that rule saw, and a score broken into its parts.</p>
+        <ul class="ticks">
+          <li>The reason is written for the applicant, not for a data scientist.</li>
+          <li>Missing documents are named one by one.</li>
+          <li>All thresholds live in one table, so changing a rule is a single edit.</li>
+        </ul>
+      </div>
+      <article class="decision-card card reveal" aria-label="Sample decision record">
+        <header class="dc-head">
+          <div>
+            <p class="dc-id num">MCL-1001, Avery Quill</p>
+            <h3>$12,000 over 36 months</h3>
+          </div>
+          <span class="pill pill-APPROVE">Approved</span>
+        </header>
+        <p class="dc-reason">All checks passed: documents complete, income verified, mock risk 10, DTI 12.1%.</p>
+        <div class="dc-score">
+          <div class="dc-score-top"><span>Mock risk score</span><strong class="num" data-count="10">10</strong></div>
+          <div class="bar" role="img" aria-label="Risk components: credit band 15, debt to income 4.8, late payments 0, employment minus 10">
+            <span style="--w:15%" class="seg seg-a"></span><span style="--w:4.8%" class="seg seg-b"></span>
+          </div>
+          <dl class="dc-parts num">
+            <div><dt>Credit band (good)</dt><dd>+15</dd></div>
+            <div><dt>Debt-to-income 12.1%</dt><dd>+4.8</dd></div>
+            <div><dt>Late payments</dt><dd>+0</dd></div>
+            <div><dt>6 years employed</dt><dd>&minus;10</dd></div>
+          </dl>
+        </div>
+        <ol class="dc-rules">
+          <li><span class="rid">R1</span> Documents present <span class="ok">pass</span></li>
+          <li><span class="rid">R2</span> Risk under 70 <span class="ok">pass</span></li>
+          <li><span class="rid">R3</span> DTI 12.1% under 45% <span class="ok">pass</span></li>
+          <li><span class="rid">R4</span> Income $6,500 matches stub <span class="ok">pass</span></li>
+          <li><span class="rid">R5</span> Risk under 40 <span class="ok">pass</span></li>
+          <li><span class="rid">R6</span> Loan 15% of annual income <span class="ok">pass</span></li>
+          <li><span class="rid">R7</span> All checks passed <span class="fire">decides</span></li>
+        </ol>
+      </article>
+    </div>
+  </section>
+
+  <!-- Humans in the loop -------------------------------------------------------------->
+  <section class="humans" aria-labelledby="humans-title">
+    <div class="humans-media" aria-hidden="true">
+      <video class="accent-video" muted loop playsinline preload="none" poster="assets/media/contour-loop-poster.webp" data-src="assets/media/contour-loop.mp4"></video>
+    </div>
+    <div class="wrap split split-rev">
+      <div class="split-copy reveal">
+        <h2 id="humans-title">Humans stay in the loop</h2>
+        <p>The rules handle the clear cases. Borderline scores, income that doesn't match, and missing paperwork all go to an underwriter, who has to write down why they decided.</p>
+        <p>Their decision is added on top. The automated result underneath is never edited.</p>
+      </div>
+      <div class="layers reveal" aria-label="Two decisions recorded for the same application">
+        <div class="layer layer-auto">
+          <p class="layer-by">Rules engine, 09:14</p>
+          <p class="layer-out"><span class="pill pill-REVIEW">Review</span> Income mismatch: stated $7,000 vs document $5,200.</p>
+        </div>
+        <div class="layer layer-human">
+          <p class="layer-by">Underwriter (demo reviewer), 11:02</p>
+          <p class="layer-out"><span class="pill pill-APPROVE">Approved</span> "Second pay stub shows a raise effective next month."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Audit + live stats -------------------------------------------------------------->
+  <section class="audit" aria-labelledby="audit-title">
+    <div class="wrap">
+      <div class="audit-head reveal">
+        <h2 id="audit-title">Every step leaves a record</h2>
+        <p>The application is written once. Each change after that is a new line in an append-only log, with a timestamp, an actor and the details.</p>
+      </div>
+      <dl class="stats" id="live-stats">
+        <div class="stat"><dt>Applications in the demo</dt><dd class="num" data-count="7" data-key="total">7</dd></div>
+        <div class="stat"><dt>Waiting for an underwriter</dt><dd class="num" data-count="4" data-key="in_review">4</dd></div>
+        <div class="stat"><dt>Average mock risk</dt><dd class="num" data-count="28.6" data-key="avg_risk" data-decimals="1">28.6</dd></div>
+        <div class="stat"><dt>Audit events logged</dt><dd class="num" data-count="39" data-key="event_count">39</dd></div>
+      </dl>
+      <ol class="log reveal" aria-label="Example audit log for one application">
+        <li><time>09:14:02</time><b>SUBMITTED</b><span>applicant</span></li>
+        <li><time>09:14:02</time><b>DOCS_EXTRACTED</b><span>extraction (mock)</span></li>
+        <li><time>09:14:02</time><b>RISK_SCORED</b><span>risk (mock)</span></li>
+        <li><time>09:14:02</time><b>RULES_APPLIED</b><span>rules-engine</span></li>
+        <li><time>09:14:02</time><b>ROUTED_TO_REVIEW</b><span>rules-engine</span></li>
+        <li><time>09:14:03</time><b>NOTIFIED</b><span>notify (mock)</span></li>
+        <li><time>11:02:40</time><b>UNDERWRITER_DECISION</b><span>demo reviewer</span></li>
+        <li><time>11:02:40</time><b>NOTIFIED</b><span>notify (mock)</span></li>
+      </ol>
+      <div class="closing reveal">
+        <p>Try it with one of the sample applicants, then decide the case yourself in the console.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="apply.html">Apply for a loan</a>
+          <a class="btn btn-ghost" href="ops.html">Open underwriter console</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="disclaimer">Class demo. Fictional data. Not a real credit model or lending offer.</p>
+    <p>Meridian Credit Labs is fictional. FIT6050 take-home by Ahmad Abuadas.</p>
+  </div>
+</footer>
+</body>
+</html>

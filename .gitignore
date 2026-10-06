@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Runtime store (applications, audit log, outbox are recreated by the app)
+data/
+
+# Secrets and credentials
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+credentials/
+credentials*.json
+service-account*.json
+secrets*.json
+
+# Tooling / OS
+*.log
+.DS_Store
+Thumbs.db
+node_modules/
+dist/
+build/
+.playwright-mcp/

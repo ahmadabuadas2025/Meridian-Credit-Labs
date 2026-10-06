@@ -1,0 +1,127 @@
+[
+  {
+    "scenario": "Complete + low risk",
+    "applicant_name": "Avery Quill",
+    "email": "avery.quill@example.com",
+    "loan_amount": 12000,
+    "term_months": 36,
+    "purpose": "debt_consolidation",
+    "stated_monthly_income": 6500,
+    "monthly_debts": 400,
+    "years_employed": 6,
+    "credit_band": "good",
+    "prior_delinquencies": 0,
+    "documents": [
+      {"type": "government_id", "filename": "id_avery.txt"},
+      {"type": "proof_of_income", "filename": "pay_stub_avery.txt"},
+      {"type": "bank_statement", "filename": "bank_statement_avery.txt"}
+    ]
+  },
+  {
+    "scenario": "Missing income doc",
+    "applicant_name": "Bram Tidewell",
+    "email": "bram.tidewell@example.com",
+    "loan_amount": 8000,
+    "term_months": 24,
+    "purpose": "home_improvement",
+    "stated_monthly_income": 5200,
+    "monthly_debts": 350,
+    "years_employed": 4,
+    "credit_band": "good",
+    "prior_delinquencies": 0,
+    "documents": [
+      {"type": "government_id", "filename": "id_bram.txt"},
+      {"type": "bank_statement", "filename": "bank_statement_bram.txt"}
+    ]
+  },
+  {
+    "scenario": "High risk",
+    "applicant_name": "Cleo Farrow",
+    "email": "cleo.farrow@example.com",
+    "loan_amount": 9000,
+    "term_months": 36,
+    "purpose": "auto",
+    "stated_monthly_income": 4200,
+    "monthly_debts": 650,
+    "years_employed": 1,
+    "credit_band": "poor",
+    "prior_delinquencies": 2,
+    "documents": [
+      {"type": "government_id", "filename": "id_cleo.txt"},
+      {"type": "proof_of_income", "filename": "pay_stub_cleo.txt"},
+      {"type": "bank_statement", "filename": "bank_statement_cleo.txt"}
+    ]
+  },
+  {
+    "scenario": "DTI too high",
+    "applicant_name": "Dax Holloway",
+    "email": "dax.holloway@example.com",
+    "loan_amount": 20000,
+    "term_months": 24,
+    "purpose": "business",
+    "stated_monthly_income": 4000,
+    "monthly_debts": 1500,
+    "years_employed": 3,
+    "credit_band": "good",
+    "prior_delinquencies": 0,
+    "documents": [
+      {"type": "government_id", "filename": "id_dax.txt"},
+      {"type": "proof_of_income", "filename": "pay_stub_dax.txt"},
+      {"type": "bank_statement", "filename": "bank_statement_dax.txt"}
+    ]
+  },
+  {
+    "scenario": "Income mismatch",
+    "applicant_name": "Emery Vance",
+    "email": "emery.vance@example.com",
+    "loan_amount": 15000,
+    "term_months": 48,
+    "purpose": "education",
+    "stated_monthly_income": 7000,
+    "monthly_debts": 600,
+    "years_employed": 4,
+    "credit_band": "good",
+    "prior_delinquencies": 0,
+    "documents": [
+      {"type": "government_id", "filename": "id_emery.txt"},
+      {"type": "proof_of_income", "filename": "pay_stub_emery.txt"},
+      {"type": "bank_statement", "filename": "bank_statement_emery.txt"}
+    ]
+  },
+  {
+    "scenario": "Borderline risk",
+    "applicant_name": "Finley Ashgrove",
+    "email": "finley.ashgrove@example.com",
+    "loan_amount": 10000,
+    "term_months": 36,
+    "purpose": "medical",
+    "stated_monthly_income": 5000,
+    "monthly_debts": 900,
+    "years_employed": 2,
+    "credit_band": "fair",
+    "prior_delinquencies": 1,
+    "documents": [
+      {"type": "government_id", "filename": "id_finley.txt"},
+      {"type": "proof_of_income", "filename": "pay_stub_finley.txt"},
+      {"type": "bank_statement", "filename": "bank_statement_finley.txt"}
+    ]
+  },
+  {
+    "scenario": "Large loan vs income",
+    "applicant_name": "Greer Lumen",
+    "email": "greer.lumen@example.com",
+    "loan_amount": 30000,
+    "term_months": 60,
+    "purpose": "home_improvement",
+    "stated_monthly_income": 4000,
+    "monthly_debts": 200,
+    "years_employed": 7,
+    "credit_band": "excellent",
+    "prior_delinquencies": 0,
+    "documents": [
+      {"type": "government_id", "filename": "id_greer.txt"},
+      {"type": "proof_of_income", "filename": "pay_stub_greer.txt"},
+      {"type": "bank_statement", "filename": "bank_statement_greer.txt"}
+    ]
+  }
+]

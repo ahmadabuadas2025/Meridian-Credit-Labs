@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Underwriter Console</title>
+  <meta name="description" content="Meridian Credit Labs underwriter console: review queue, decision traces and audit trail.">
+  <link rel="icon" href="assets/media/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Schibsted+Grotesk:wght@500;600;700;800&display=swap">
+  <link rel="stylesheet" href="assets/css/app.css">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+  <script src="assets/js/common.js" defer></script>
+  <script src="assets/js/ops.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Meridian Credit Labs home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 2v28" stroke="var(--accent)" stroke-width="3"/><path d="M5 11h22M5 21h22" stroke="currentColor" stroke-width="1.5" opacity=".5"/></svg>
+      Meridian <small>Credit Labs</small>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a class="hide-sm" href="index.html#how">How it works</a>
+      <a href="apply.html">Apply</a>
+      <a href="ops.html" aria-current="page">Underwriters</a>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Toggle theme"></button>
+  </div>
+</header>
+
+<main id="main" class="wrap page">
+  <div class="page-head">
+    <div>
+      <h1>Underwriter console</h1>
+      <p class="lede">Every application the rules engine has seen. Cases marked for review are waiting for a person.</p>
+    </div>
+    <div class="head-actions">
+      <button type="button" class="btn btn-ghost" id="refresh">Refresh</button>
+      <button type="button" class="btn btn-ghost" id="reset">Reset demo data</button>
+    </div>
+  </div>
+
+  <p class="form-alert" id="page-alert" role="alert"></p>
+
+  <section class="kpis" aria-label="Key figures">
+    <div class="kpi"><p class="kpi-label">Applications</p><p class="kpi-value num" id="k-total">&ndash;</p></div>
+    <div class="kpi"><p class="kpi-label">Approved</p><p class="kpi-value num" id="k-approved">&ndash;</p></div>
+    <div class="kpi"><p class="kpi-label">Declined</p><p class="kpi-value num" id="k-declined">&ndash;</p></div>
+    <div class="kpi kpi-hot"><p class="kpi-label">Waiting for review</p><p class="kpi-value num" id="k-review">&ndash;</p></div>
+    <div class="kpi"><p class="kpi-label">Average mock risk</p><p class="kpi-value num" id="k-risk">&ndash;</p></div>
+  </section>
+
+  <div class="ops-grid">
+    <section class="card panel" aria-labelledby="chart-title">
+      <h2 id="chart-title" class="panel-title">Current outcomes</h2>
+      <div id="chart" class="chart"></div>
+    </section>
+    <section class="card panel" aria-labelledby="sys-title">
+      <h2 id="sys-title" class="panel-title">System components</h2>
+      <p class="panel-sub">Each module and the last event it wrote to the audit log.</p>
+      <ul class="components" id="components"></ul>
+    </section>
+  </div>
+
+  <section class="card panel queue" aria-labelledby="queue-title">
+    <div class="queue-head">
+      <h2 id="queue-title" class="panel-title">Applications</h2>
+      <div class="filters">
+        <div class="seg-filter" role="group" aria-label="Filter by status" id="status-filter">
+          <button type="button" data-filter="PENDING_REVIEW" aria-pressed="true">Needs review</button>
+          <button type="button" data-filter="ALL" aria-pressed="false">All</button>
+          <button type="button" data-filter="APPROVE" aria-pressed="false">Approved</button>
+          <button type="button" data-filter="DECLINE" aria-pressed="false">Declined</button>
+        </div>
+        <label class="visually-hidden" for="search">Search applications</label>
+        <input class="input search" id="search" type="search" placeholder="Search name or ID">
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table class="queue-table">
+        <caption class="visually-hidden">Applications, sortable by column</caption>
+        <thead>
+          <tr>
+            <th scope="col" aria-sort="none"><button type="button" data-sort="id">ID</button></th>
+            <th scope="col" aria-sort="none"><button type="button" data-sort="applicant_name">Applicant</button></th>
+            <th scope="col" aria-sort="none" class="r"><button type="button" data-sort="loan_amount">Amount</button></th>
+            <th scope="col" aria-sort="descending" class="r"><button type="button" data-sort="risk_score">Risk</button></th>
+            <th scope="col" aria-sort="none" class="r"><button type="button" data-sort="dti">DTI</button></th>
+            <th scope="col" aria-sort="none"><button type="button" data-sort="status">Status</button></th>
+            <th scope="col" class="reason-col">Reason</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<!-- Detail drawer --------------------------------------------------------------------->
+<div class="drawer-backdrop" id="backdrop" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="d-title" hidden>
+  <div class="drawer-head">
+    <div>
+      <p class="d-id num" id="d-id"></p>
+      <h2 id="d-title" tabindex="-1">Application</h2>
+    </div>
+    <button type="button" class="btn btn-quiet close" id="d-close" aria-label="Close details">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="d-body"></div>
+</aside>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="disclaimer">Class demo. Fictional data. Not a real credit model or lending offer.</p>
+    <p>Meridian Credit Labs is fictional.</p>
+  </div>
+</footer>
+</body>
+</html>

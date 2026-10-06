@@ -1,0 +1,8 @@
+*** FICTIONAL DOCUMENT - MERIDIAN CREDIT LABS CLASS DEMO - NOT A REAL RECORD ***
+PAY STUB (MOCK)
+Employer: Harborlight Robotics Co.
+Employee: Avery Quill
+Pay Period: 2026-08-01 to 2026-08-31
+Pay Frequency: Monthly
+Gross Monthly Income: $6,500.00
+Taxes and Deductions: $1,180.00

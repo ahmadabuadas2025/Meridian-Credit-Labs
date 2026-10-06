@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apply for a Loan</title>
+  <meta name="description" content="Apply for a demo loan with Meridian Credit Labs and see the decision explained step by step.">
+  <link rel="icon" href="assets/media/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Schibsted+Grotesk:wght@500;600;700;800&display=swap">
+  <link rel="stylesheet" href="assets/css/app.css">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+  <script src="assets/js/common.js" defer></script>
+  <script src="assets/js/apply.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Meridian Credit Labs home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 2v28" stroke="var(--accent)" stroke-width="3"/><path d="M5 11h22M5 21h22" stroke="currentColor" stroke-width="1.5" opacity=".5"/></svg>
+      Meridian <small>Credit Labs</small>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a class="hide-sm" href="index.html#how">How it works</a>
+      <a href="apply.html" aria-current="page">Apply</a>
+      <a href="ops.html">Underwriters</a>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Toggle theme"></button>
+  </div>
+</header>
+
+<main id="main" class="wrap page">
+  <div class="page-head">
+    <div>
+      <h1>Apply for a loan</h1>
+      <p class="lede">About two minutes. Use made-up details: this is a class demo and nothing here is a real offer.</p>
+    </div>
+    <div class="scenarios" role="group" aria-labelledby="scen-label">
+      <p id="scen-label" class="scen-label">Try a scenario</p>
+      <div class="scen-buttons">
+        <button type="button" class="chip" data-scenario="Complete + low risk">Complete, low risk</button>
+        <button type="button" class="chip" data-scenario="Missing income doc">Missing income doc</button>
+        <button type="button" class="chip" data-scenario="High risk">High risk</button>
+        <button type="button" class="chip" data-scenario="Income mismatch">Income mismatch</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="apply-layout">
+    <section class="card apply-main" aria-label="Loan application">
+      <!-- Form ------------------------------------------------------------------------>
+      <form id="apply-form" novalidate>
+        <ol class="stepper" aria-label="Application progress">
+          <li data-step="0" aria-current="step"><span>1</span>Personal</li>
+          <li data-step="1"><span>2</span>Loan</li>
+          <li data-step="2"><span>3</span>Finances</li>
+          <li data-step="3"><span>4</span>Documents</li>
+        </ol>
+
+        <p class="form-alert" id="form-alert" role="alert" tabindex="-1"></p>
+
+        <fieldset class="step" data-step="0">
+          <legend class="step-title">About you</legend>
+          <p class="step-hint">Please don't enter real personal details.</p>
+          <div class="grid-2">
+            <div class="field">
+              <label for="applicant_name">Full name (fictional)</label>
+              <input class="input" id="applicant_name" name="applicant_name" autocomplete="off" maxlength="100" required aria-describedby="applicant_name-err">
+              <p class="error-msg" id="applicant_name-err"></p>
+            </div>
+            <div class="field">
+              <label for="email">Email (fictional)</label>
+              <input class="input" id="email" name="email" type="email" autocomplete="off" placeholder="name@example.com" required aria-describedby="email-err">
+              <p class="error-msg" id="email-err"></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="step" data-step="1" hidden>
+          <legend class="step-title">The loan</legend>
+          <div class="grid-3">
+            <div class="field">
+              <label for="loan_amount">Amount (USD)</label>
+              <input class="input num" id="loan_amount" name="loan_amount" inputmode="decimal" required aria-describedby="loan_amount-err">
+              <p class="error-msg" id="loan_amount-err"></p>
+            </div>
+            <div class="field">
+              <label for="term_months">Term</label>
+              <select class="input" id="term_months" name="term_months" required aria-describedby="term_months-err">
+                <option value="12">12 months</option>
+                <option value="24">24 months</option>
+                <option value="36" selected>36 months</option>
+                <option value="48">48 months</option>
+                <option value="60">60 months</option>
+              </select>
+              <p class="error-msg" id="term_months-err"></p>
+            </div>
+            <div class="field">
+              <label for="purpose">Purpose</label>
+              <select class="input" id="purpose" name="purpose">
+                <option value="debt_consolidation">Debt consolidation</option>
+                <option value="home_improvement">Home improvement</option>
+                <option value="auto">Car</option>
+                <option value="education">Education</option>
+                <option value="medical">Medical</option>
+                <option value="business">Small business</option>
+                <option value="other">Something else</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="step" data-step="2" hidden>
+          <legend class="step-title">Your finances</legend>
+          <div class="grid-2">
+            <div class="field">
+              <label for="stated_monthly_income">Monthly income before tax (USD)</label>
+              <input class="input num" id="stated_monthly_income" name="stated_monthly_income" inputmode="decimal" required aria-describedby="stated_monthly_income-hint stated_monthly_income-err">
+              <p class="hint" id="stated_monthly_income-hint">We compare this with your pay stub.</p>
+              <p class="error-msg" id="stated_monthly_income-err"></p>
+            </div>
+            <div class="field">
+              <label for="monthly_debts">Monthly debt payments (USD)</label>
+              <input class="input num" id="monthly_debts" name="monthly_debts" inputmode="decimal" required aria-describedby="monthly_debts-hint monthly_debts-err">
+              <p class="hint" id="monthly_debts-hint">Cards, car, student loans. Enter 0 if none.</p>
+              <p class="error-msg" id="monthly_debts-err"></p>
+            </div>
+            <div class="field">
+              <label for="years_employed">Years with current employer</label>
+              <input class="input num" id="years_employed" name="years_employed" inputmode="decimal" required aria-describedby="years_employed-err">
+              <p class="error-msg" id="years_employed-err"></p>
+            </div>
+            <div class="field">
+              <label for="prior_delinquencies">Late payments in the last 2 years</label>
+              <input class="input num" id="prior_delinquencies" name="prior_delinquencies" inputmode="numeric" value="0" required aria-describedby="prior_delinquencies-err">
+              <p class="error-msg" id="prior_delinquencies-err"></p>
+            </div>
+          </div>
+          <fieldset class="field band-field">
+            <legend>Credit band (self-reported, mock)</legend>
+            <div class="segmented" id="credit_band">
+              <label><input type="radio" name="credit_band" value="excellent"><span>Excellent</span></label>
+              <label><input type="radio" name="credit_band" value="good" checked><span>Good</span></label>
+              <label><input type="radio" name="credit_band" value="fair"><span>Fair</span></label>
+              <label><input type="radio" name="credit_band" value="poor"><span>Poor</span></label>
+              <label><input type="radio" name="credit_band" value="very_poor"><span>Very poor</span></label>
+            </div>
+          </fieldset>
+        </fieldset>
+
+        <fieldset class="step" data-step="3" hidden>
+          <legend class="step-title">Documents</legend>
+          <p class="step-hint">Plain-text (.txt) files only. Leave one out to see how a missing document is handled.</p>
+          <ul class="docs" id="docs">
+            <li class="doc" data-type="government_id">
+              <div class="doc-info"><p class="doc-name">Government ID</p><p class="doc-status" id="st-government_id">Not added</p></div>
+              <div class="doc-actions">
+                <label class="btn btn-ghost btn-sm file-btn">Upload .txt<input type="file" accept=".txt,text/plain" data-type="government_id" aria-describedby="st-government_id"></label>
+                <button type="button" class="btn btn-quiet btn-sm" data-sample="government_id">Use sample</button>
+                <button type="button" class="btn btn-quiet btn-sm" data-remove="government_id" hidden>Remove</button>
+              </div>
+            </li>
+            <li class="doc" data-type="proof_of_income">
+              <div class="doc-info"><p class="doc-name">Pay stub (proof of income)</p><p class="doc-status" id="st-proof_of_income">Not added</p></div>
+              <div class="doc-actions">
+                <label class="btn btn-ghost btn-sm file-btn">Upload .txt<input type="file" accept=".txt,text/plain" data-type="proof_of_income" aria-describedby="st-proof_of_income"></label>
+                <button type="button" class="btn btn-quiet btn-sm" data-sample="proof_of_income">Use sample</button>
+                <button type="button" class="btn btn-quiet btn-sm" data-remove="proof_of_income" hidden>Remove</button>
+              </div>
+            </li>
+            <li class="doc" data-type="bank_statement">
+              <div class="doc-info"><p class="doc-name">Bank statement</p><p class="doc-status" id="st-bank_statement">Not added</p></div>
+              <div class="doc-actions">
+                <label class="btn btn-ghost btn-sm file-btn">Upload .txt<input type="file" accept=".txt,text/plain" data-type="bank_statement" aria-describedby="st-bank_statement"></label>
+                <button type="button" class="btn btn-quiet btn-sm" data-sample="bank_statement">Use sample</button>
+                <button type="button" class="btn btn-quiet btn-sm" data-remove="bank_statement" hidden>Remove</button>
+              </div>
+            </li>
+          </ul>
+        </fieldset>
+
+        <div class="form-nav">
+          <button type="button" class="btn btn-quiet" id="back-btn" hidden>Back</button>
+          <button type="button" class="btn btn-primary" id="next-btn">Continue</button>
+          <button type="submit" class="btn btn-primary" id="submit-btn" hidden>Submit application</button>
+        </div>
+      </form>
+
+      <!-- Result ---------------------------------------------------------------------->
+      <div id="result" hidden>
+        <h2 class="result-title" tabindex="-1" id="result-title">Reviewing your application</h2>
+        <ol class="timeline" id="timeline" aria-label="Review progress"></ol>
+        <div id="decision" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <aside class="apply-side" aria-label="Your applications and notices">
+      <section class="card side-card">
+        <div class="side-head"><h2>My applications</h2><button type="button" class="btn btn-quiet btn-sm" id="refresh-btn">Refresh</button></div>
+        <ul class="my-apps" id="my-apps"></ul>
+      </section>
+      <section class="card side-card">
+        <div class="side-head"><h2>Inbox</h2><span class="muted small">Mock email, nothing is sent</span></div>
+        <ul class="inbox" id="inbox"></ul>
+      </section>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="disclaimer">Class demo. Fictional data. Not a real credit model or lending offer.</p>
+    <p>Meridian Credit Labs is fictional.</p>
+  </div>
+</footer>
+</body>
+</html>

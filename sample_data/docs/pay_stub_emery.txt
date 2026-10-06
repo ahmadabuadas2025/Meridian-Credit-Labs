@@ -1,0 +1,8 @@
+*** FICTIONAL DOCUMENT - MERIDIAN CREDIT LABS CLASS DEMO - NOT A REAL RECORD ***
+PAY STUB (MOCK)
+Employer: Brightkettle Foods Inc.
+Employee: Emery Vance
+Pay Period: 2026-08-01 to 2026-08-31
+Pay Frequency: Monthly
+Gross Monthly Income: $5,200.00
+Taxes and Deductions: $1,180.00

@@ -1,0 +1,6 @@
+*** FICTIONAL DOCUMENT - MERIDIAN CREDIT LABS CLASS DEMO - NOT A REAL RECORD ***
+MOCK BANK STATEMENT - Fernwood Demo Bank (fictional)
+Account Holder: Avery Quill
+Statement Period: 2026-06-01 to 2026-08-31
+Average Monthly Deposits: $6,420.00
+Ending Balance: $7,210.55
