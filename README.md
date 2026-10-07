@@ -31,7 +31,7 @@ To run the Netlify API tests with Node.js 22+, install the dependency and run:
 
 ```bash
 npm ci
-node --test netlify/functions/api.test.mjs
+node --test tests/api.test.mjs
 ```
 
 The server seeds 7 sample applicants on first start. Runtime data is written to `data/`,

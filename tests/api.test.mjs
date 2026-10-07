@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { handleRequest } from "./api.mjs";
+import { handleRequest } from "../netlify/functions/api.mjs";
 
 class MemoryStore {
   values = new Map();

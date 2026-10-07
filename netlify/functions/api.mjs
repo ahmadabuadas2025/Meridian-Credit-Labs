@@ -1,12 +1,9 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { getStore } from "@netlify/blobs";
 
 const STORE_NAME = "meridian-credit-labs";
-const SAMPLE_DIR = process.env.NETLIFY
-  ? path.join(process.cwd(), "sample_data")
-  : fileURLToPath(new URL("../../sample_data", import.meta.url));
+const SAMPLE_DIR = path.join(process.cwd(), "sample_data");
 const REQUIRED_DOCUMENTS = ["government_id", "proof_of_income", "bank_statement"];
 const DOCUMENT_LABELS = {
   government_id: "government ID",
