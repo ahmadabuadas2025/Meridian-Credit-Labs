@@ -27,8 +27,29 @@ python main.py serve           # web app on http://127.0.0.1:8000 (localhost onl
 python main.py serve --port 8080
 ```
 
+To run the Netlify API tests with Node.js 22+, install the dependency and run:
+
+```bash
+npm ci
+node --test netlify/functions/api.test.mjs
+```
+
 The server seeds 7 sample applicants on first start. Runtime data is written to `data/`,
 which is git-ignored. The **Reset demo data** button (or `POST /api/reset`) reloads the samples.
+
+### Deploy to Netlify
+
+Netlify serves the static site and deploys `netlify/functions/api.mjs` for the `/api/*`
+routes. The function seeds the 7 sample applicants on its first data request and stores
+applications, audit events and mock notices in the site's persistent Netlify Blobs store.
+No always-running `python main.py serve` process is needed in production. Netlify reads
+the build and function settings from `netlify.toml`; the function uses Node.js 22.
+
+The local `data/` directory is git-ignored and is not uploaded or migrated to Netlify.
+The hosted site starts with the included fictional sample data; new hosted submissions
+persist across deploys. Use fictional information only: this demo has no authentication,
+and hosted applications and underwriting decisions are shared with anyone who can reach
+the site. The destructive reset control is available only on localhost.
 
 Pages:
 
@@ -125,12 +146,12 @@ the score as a sum. The credit band is self-reported and fictional. No bureau is
 | `GET /api/applications/{id}` | Detail: input, extracted fields, risk, rules fired, decisions, audit trail |
 | `POST /api/applications/{id}/review` | `{reviewer, outcome: "APPROVE" \| "DECLINE", note}`. Only for REVIEW cases |
 | `GET /api/stats` | Counts by outcome, review-queue size, average risk, and last event per component |
-| `POST /api/reset` | Reload the sample data (demo convenience) |
+| `POST /api/reset` | Reload local sample data; disabled on the shared Netlify deployment |
 | `GET /api/samples` | Sample applicants with document text, used by the quick-fill and "Use sample" buttons |
 | `GET /api/outbox?ids=MCL-1001,...` | Mock notification inbox |
 
 Bad input returns **400** `{"error": "..."}`, an unknown ID or route returns **404**, and a body over 1 MB returns **413**. Unexpected errors
-return a generic 500, and the traceback is printed only on the server console. The server binds to
+return a generic 500, and the traceback is printed only on the server console. The local server binds to
 `127.0.0.1`, disables directory listings, sets `nosniff` and a Content-Security-Policy, and never
 serves files outside `web/`.
 

@@ -311,7 +311,9 @@
 
   // --- actions ------------------------------------------------------------------------
   $("#refresh").addEventListener("click", () => { load(); toast("Refreshed."); });
-  $("#reset").addEventListener("click", async () => {
+  const resetButton = $("#reset");
+  if (!["localhost", "127.0.0.1", "::1"].includes(location.hostname)) resetButton.hidden = true;
+  resetButton.addEventListener("click", async () => {
     if (!window.confirm("Reset the demo? This deletes every application, audit event and notice, then reloads the 7 sample applicants.")) return;
     try {
       await api("/api/reset", { method: "POST" });
@@ -323,6 +325,6 @@
 
   load().then(() => {
     const id = decodeURIComponent(location.hash.slice(1));
-    if (/^MCL-\d+$/.test(id)) openDrawer(id, null);
+    if (/^MCL-[A-Z0-9]+$/i.test(id)) openDrawer(id, null);
   });
 })();

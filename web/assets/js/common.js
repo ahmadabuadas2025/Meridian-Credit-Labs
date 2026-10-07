@@ -36,7 +36,7 @@
     }
     let res;
     try { res = await fetch(path, opts); } catch (_) {
-      throw new Error("Can't reach the demo server. Is 'python main.py serve' running?");
+      throw new Error("Can't reach the API. Check the local demo server or the deployed API function.");
     }
     let data = null;
     try { data = await res.json(); } catch (_) { /* non-JSON */ }

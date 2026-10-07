@@ -1,2 +1,10 @@
 [build]
   publish = "web"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[functions]
+  node_bundler = "esbuild"
+  included_files = ["sample_data/**"]
